@@ -16,9 +16,11 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         List<String> labels = new ArrayList<>();
-        labels.add("他");
+        labels.add("周碧玉");
+        labels.add("編號：1234");
+        labels.add(TimeUtils.customDate());
 
         textView = findViewById(R.id.textView);
-        textView.setBackground(new WeterMarkBgView(MainActivity.this,labels,0,30));
+        textView.setBackground(new WeterMarkBgView(MainActivity.this,labels,-10,20));
     }
 }

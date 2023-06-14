@@ -37,7 +37,7 @@ public class WeterMarkBgView extends Drawable {
     public void draw(@NonNull Canvas canvas) {
         //getBounds().right 和 getBounds().bottom 獲取繪製區域的寬度和高度。
         int width = getBounds().right;
-        int height = getBounds().bottom;
+        int height = getBounds().top + 200;
 
         //畫布背景色
         canvas.drawColor(Color.parseColor("#40F3F5F9"));
@@ -53,24 +53,13 @@ public class WeterMarkBgView extends Drawable {
         canvas.rotate(degress);
         // measureText 方法測量第一個水印文字（labels.get(0)）的寬度，將結果存儲在 textWidth 變量中
         float textWidth = paint.measureText(labels.get(0));
-        int index = 0;
 
-        /*
-         * 進行水印的繪製，從 height/10 的位置開始向下遞增 10 個像素，並使用雙層循環進行水印的繪製。
-         * 外層循環遍歷垂直方向的位置（postionY），從上到下每隔 10 個像素繪製一行水印。
-         * 內層循環遍歷水平方向的位置（postionX），從左到右每隔 textWidth * 2 像素繪製一個水印。
-         * 在每個位置上，根據 labels 列表中的每個文本進行繪製，並根據 spacing 參數控制每行文字的垂直間距。
-         * */
-        for(int postionY = height/10; postionY <= height; postionY += 10){
-            float fromX = -width + (index++ % 2) * textWidth;
-            for(float postionX = fromX; postionX < width; postionX += textWidth *2){
-                int spacing = 0; //間距
-                for(String label :labels){
-                    canvas.drawText(label, postionX,postionY + spacing, paint);
-                    spacing = spacing + 50;
-                }
-            }
+        int spacing = 0; // 垂直間距，drawText(要繪製的文本內容,x軸起始位置畫布左上角,y軸起始位置畫布左上角,Paint對象設置文本的顏色)
+        for (String label : labels) {
+            canvas.drawText(label, 100, height+ spacing, paint);
+            spacing = spacing + 100;
         }
+
         // 使用 canvas.restore() 恢復到 canvas.save() 之前的繪製狀態
         canvas.restore();
     }
@@ -87,11 +76,45 @@ public class WeterMarkBgView extends Drawable {
 
     @Override
     public int getOpacity() {
+        //表示不確定畫筆的不透明度
         return PixelFormat.UNKNOWN;
     }
+
+    /*
+    PixelFormat.UNKNOWN: 表示不確定的像素格式，即畫筆的不透明度未知。
+    PixelFormat.TRANSLUCENT: 表示畫筆具有半透明的像素格式。
+    PixelFormat.TRANSPARENT: 表示畫筆具有完全透明的像素格式。
+    PixelFormat.OPAQUE: 表示畫筆具有完全不透明的像素格式。
+    */
 
     public static int sp2px(Context context,float spValue){
         final float fontScale = context.getResources().getDisplayMetrics().scaledDensity;
         return (int) (spValue * fontScale + 0.5f);
     }
+
+
+    /*
+        進行水印的繪製，從 height/10 的位置開始向下遞增 10 個像素，並使用雙層循環進行水印的繪製。
+        外層循環遍歷垂直方向的位置（postionY），從上到下每隔 10 個像素繪製一行水印。
+        內層循環遍歷水平方向的位置（postionX），從左到右每隔 textWidth * 2 像素繪製一個水印。
+        在每個位置上，根據 labels 列表中的每個文本進行繪製，並根據 spacing 參數控制每行文字的垂直間距。
+        int index = 0;
+        for(int postionY = height/10; postionY <= height; postionY += 10){
+            float fromX = -width + (index++ % 2) * textWidth;
+            for(float postionX = fromX; postionX < width; postionX += textWidth *2){
+                int spacing = 0; //間距
+                for(String label :labels){
+                    canvas.drawText(label, postionX,postionY + spacing, paint);
+                    spacing = spacing + 50;
+                }
+            }
+        }
+
+        for (String label : labels) {
+            for (float postionX = 1; postionX < width; postionX += textWidth * 3) {
+                canvas.drawText(label, postionX, 100 + spacing, paint);
+            }
+            spacing = spacing + 100;
+        }
+    */
 }
