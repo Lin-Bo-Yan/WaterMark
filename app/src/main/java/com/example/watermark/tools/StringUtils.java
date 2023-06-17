@@ -1,4 +1,4 @@
-package com.example.watermark;
+package com.example.watermark.tools;
 
 import android.util.Log;
 

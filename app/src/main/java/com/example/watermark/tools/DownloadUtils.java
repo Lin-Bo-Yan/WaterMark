@@ -1,4 +1,4 @@
-package com.example.watermark;
+package com.example.watermark.tools;
 
 import android.app.DownloadManager;
 import android.content.Context;
@@ -8,6 +8,8 @@ import android.os.Environment;
 import android.os.Handler;
 import android.os.Looper;
 import android.webkit.CookieManager;
+
+import com.example.watermark.R;
 
 import org.json.JSONArray;
 import org.json.JSONException;

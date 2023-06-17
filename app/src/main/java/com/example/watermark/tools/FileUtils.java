@@ -1,4 +1,4 @@
-package com.example.watermark;
+package com.example.watermark.tools;
 
 import android.content.Context;
 import android.content.res.Resources;
@@ -6,6 +6,8 @@ import android.graphics.BitmapFactory;
 import android.media.MediaMetadataRetriever;
 import android.net.Uri;
 import android.os.Environment;
+
+import com.example.watermark.R;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -110,12 +112,25 @@ public class FileUtils {
     }
 
     //在PICTURES目錄下建立app_name目錄
-    public static String saveFile(Context context, String fileName){
+    public static File saveFile(Context context, String fileName){
         Resources resources = context.getResources();
         String app_name = resources.getString(R.string.app_name);
         String tableOfContents = Environment.DIRECTORY_PICTURES + File.separator + app_name;
         File folder = new File(Environment.getExternalStoragePublicDirectory(tableOfContents), fileName);
-        return folder.getPath();
+
+        File tableOfContentsDir = new File(Environment.getExternalStoragePublicDirectory(tableOfContents),"");
+        if (!tableOfContentsDir.exists()) {
+            tableOfContentsDir.mkdirs();
+        }
+        // 如果 fileName 文件不存在，则创建空的文件
+        if (!folder.exists()) {
+            try {
+                folder.createNewFile();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+        return folder;
     }
 
 }

@@ -3,8 +3,10 @@ package com.example.watermark;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
-import android.view.WindowManager;
 import android.widget.TextView;
+
+import com.example.watermark.tools.TimeUtils;
+import com.example.watermark.tools.WeterMarkBgView;
 
 import java.util.ArrayList;
 import java.util.List;
