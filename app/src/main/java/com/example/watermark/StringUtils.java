@@ -63,4 +63,11 @@ public class StringUtils {
         HaoLog("httpReturn " + data.status + " " + data.msg + " " + data.data, 5);
     }
     */
+
+    public static String getNewString(String fileId){
+        // event_1638440675785703424
+        int length = fileId.length();
+        String result = fileId.substring(length - 10);
+        return result;
+    }
 }
